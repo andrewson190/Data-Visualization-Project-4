@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="bargraph.js"></script>
+    <link rel = "stylesheet" href = "styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <title>Trees Planted in Lawrence</title>
+    <style>
+        
+    </style>
+</head>
+<body onload="Count()">
+    <h1>Tree's Planted in Lawrence</h1>
+    <svg id = "graph1" width=1500 height = 700></svg>
+    <div class="tip"><i>Select a year below to show the location and diameter of trees planted on that year.</i></div>
+    <div class="tip"><i>Click on point on map to see details of tree.</i></div>
+    <div id="filter">
+        <label>Date Filter: </label>
+        <input type="checkbox" class="dateFilter" value="2016"> 2016
+        <input type="checkbox" class="dateFilter" value="2017"> 2017
+        <input type="checkbox" class="dateFilter" value="2018"> 2018
+        <input type="checkbox" class="dateFilter" value="2019"> 2019
+        <input type="checkbox" class="dateFilter" value="2020"> 2020
+        <input type="checkbox" class="dateFilter" value="2021"> 2021
+        <input type="checkbox" class="dateFilter" value="2022"> 2022
+    </div>
+    <div class="container">
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+        
+        <div class="graph-container">
+            <svg id="graph" width="1500" height="1000"></svg>
+        </div>
+    </div>
+
+    <div id="vis" class="line-chart"></div>
+
+    <script>
+        const spec = {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "data": {"url": "coordinates.csv"},
+         
+            "mark": {"type": "line", "color": "#2A7E19"},
+            "encoding": {
+                "x": {
+                "field": "YEAR",
+                "type": "ordinal",
+                "axis": {"title": "Year", "labelAngle": 0},
+                "scale": {"domain": ["2016", "2017", "2018", "2019", "2020", "2021", "2022"]}
+                },
+                "y": {"field": "PLANTED", "type": "quantitative", "axis": {"title": "Number of Trees", "tickCount": 5}}
+            },
+            "width": 800,
+            "height": 400
+        }
+            
+        vegaEmbed('#vis', spec);
+    </script>
+    
+    <script src="map.js"></script>
+</body>
+</html>
