@@ -11,7 +11,64 @@ function Count() {
         var g = svg.append("g").attr("transform", "translate("+100+","+100+")");
         
         const commonTrees = ["ULMUS AMERICANA", "GLEDITSIA TRIACANTHOS", "PLATANUS ACERIFOLIA"];
-        
+
+        const lineData = [
+            { x: width/2 + 110, y: height/2 + -7 },
+            { x: 250, y: 200 } 
+        ];
+
+        const lineData2 = [
+            { x: width/2 + 93, y: height/2 + 19 },
+            { x: 220, y: 300 }  
+        ];
+
+        const lineData3 = [
+            { x: width/2 + 93, y: height/2 + 50 }, 
+            { x: 200, y: 350 }  
+        ];
+
+        const line = d3.line()
+            .x(d => d.x)
+            .y(d => d.y);
+            
+        const line2 = d3.line()
+            .x(d => d.x)
+            .y(d => d.y);
+
+        const line3 = d3.line()
+            .x(d => d.x)
+            .y(d => d.y);
+
+        svg.append("path")
+            .attr("id", "line1")
+            .datum(lineData)
+            .attr("class", "line-segment")
+            .attr("d", line)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .style("display", "none");
+
+        svg.append("path")
+            .attr("id", "line2")
+            .datum(lineData2)
+            .attr("class", "line-segment")
+            .attr("d", line2)
+            .attr("stroke", "black") 
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .style("display", "none");
+
+        svg.append("path")
+            .attr("id", "line3")
+            .datum(lineData3)
+            .attr("class", "line-segment")
+            .attr("d", line3)
+            .attr("stroke", "black") 
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .style("display", "none");
+    
         svg.append("text")
             .attr("x", width / 2 + 200)
             .attr("y", height / 2)
@@ -26,20 +83,30 @@ function Count() {
             .attr("style", "text-decoration: underline; fill: #2A7E19;")
             .on("mouseover", handleMouseOver)
             .on("mouseout", handleMouseOut);
-        
-            // Function to handle mouseover event
+    
         function handleMouseOver(d) {
-            // Select the corresponding bar and apply highlight effect
-            g.selectAll(".bar")
-                .filter(bar => bar.UNIQUE === d) // Assuming "UNIQUE" is the property containing tree names
-                .style("fill", "red"); // Change color or apply any highlight effect to the bar
-        }
 
-        // Function to handle mouseout event
-        function handleMouseOut() {
-            // Reset the highlighted bars
+            if (d === "ULMUS AMERICANA") {
+                svg.select("#line1").style("display", "initial"); // Show line for ULMUS AMERICANA
+            } else if (d === "GLEDITSIA TRIACANTHOS") {
+                svg.select("#line2").style("display", "initial"); // Show line for GLEDITSIA TRIACANTHOS
+            } else if (d === "PLATANUS ACERIFOLIA") {
+                svg.select("#line3").style("display", "initial"); // Show line for PLATANUS ACERIFOLIA
+            }
+
             g.selectAll(".bar")
-                .style("fill", "#2A7E19"); // Reset bar color
+                .filter(bar => bar.UNIQUE === d) 
+                .style("fill", "red"); 
+        }
+  
+        function handleMouseOut() {
+            svg.select("#line1").style("display", "none");
+            svg.select("#line2").style("display", "none");
+            svg.select("#line3").style("display", "none");
+        
+           
+            g.selectAll(".bar")
+                .style("fill", "#2A7E19"); 
         }
 
         svg.append("text")
