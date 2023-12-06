@@ -113,14 +113,29 @@ function Count() {
             .attr("x", width / 2+200)
             .attr("y", height / 2 - 25)
             .attr("text-anchor", "middle")
-            .style("font-size", "20px")
+            .style("font-size", "16px")
             .text("The most commonly planted trees:");
+
+        svg.append("text")
+            .attr("x", width / 2+200)
+            .attr("y", height / 2 +100)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text("These trees together make up more trees");
+
+        svg.append("text")
+            .attr("x", width / 2+200)
+            .attr("y", height / 2 +120)
+            .attr("text-anchor", "middle")
+            .style("font-size", "16px")
+            .text("than all of the other species combined.");
 
         svg.append("text")
             .attr("x", width / 2)
             .attr("y", margin / 4)
             .attr("text-anchor", "middle")
             .style("font-size", "20px")
+            .style("font-weight", "bold")
             .text("Total Trees Planted");
 
         g.append("g")

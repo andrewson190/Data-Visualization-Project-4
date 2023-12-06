@@ -42,12 +42,13 @@
     </div>
 
     <div id="vis" class="line-chart"></div>
+    
 
     <script>
         const spec = {
             "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
             "data": {"url": "coordinates.csv"},
-         
+            "title": "Number of Trees Planted Over Time",
             "mark": {"type": "line", "color": "#2A7E19"},
             "encoding": {
                 "x": {
